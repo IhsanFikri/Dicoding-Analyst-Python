@@ -32,8 +32,8 @@ def load_data():
     df['weathersit'] = df['weathersit'].map({
         1: 'Clear/Partly Cloudy',
         2: 'Misty/Cloudy',
-        3: 'Misty/Cloudy',
-        4: 'Misty/Cloudy'
+        3: 'Light Snow/Rain',
+        4: 'Severe Weather'
     })
 
     df['yr'] = df['yr'].map({
@@ -65,7 +65,7 @@ with tab1:
     st.subheader('Tren Rental Sepeda per tahun')
     
     # Membuat figure dengan ukuran yang lebih besar
-    plt.figure(figsize=(12, 7))
+    plt.figure(figsize=(26, 7))
     
     # Menggunakan seaborn untuk plot dengan palet warna yang lebih menarik
     sns.set(style="whitegrid")  # Tema whitegrid agar tampilan lebih bersih
@@ -74,16 +74,16 @@ with tab1:
                  linewidth=2.5)  # Membuat garis lebih tebal
 
     # Menambahkan judul dan label sumbu yang lebih estetis
-    plt.title('Trend Sewa Sepeda Per Tahun', 
-              fontsize=16, fontweight='bold', color='darkblue')
+    plt.title('Trend Rental Sepeda Per Tahun', 
+              fontsize=16, fontweight='bold',)
     plt.xlabel('Bulan', fontsize=12, fontweight='bold')
-    plt.ylabel('Jumlah Penyewaan', fontsize=12, fontweight='bold')
+    plt.ylabel('Jumlah Rental', fontsize=12, fontweight='bold')
 
     # Menambahkan format khusus pada ticks untuk membuat sumbu X lebih rapi
-    plt.xticks(ticks=range(1, 13), labels=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-               fontsize=10)
-    plt.yticks(fontsize=10)
+    # plt.xticks(ticks=range(1, 13), labels=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+    #                                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    #            fontsize=10)
+    # plt.yticks(fontsize=10)
 
     # Menyesuaikan legenda agar lebih jelas dan tidak bertumpuk
     plt.legend(title='Tahun', title_fontsize='13', fontsize='11', loc='upper right', frameon=True)
@@ -135,13 +135,14 @@ with tab2:
     st.write("**Rata-rata Penyewaan Berdasarkan Kondisi Cuaca**")
     
     # Membuat figur baru untuk line chart
-    plt.figure(figsize=(20, 6)) 
+    plt.figure(figsize=(28, 6)) 
     avg_rentals_per_weather = df.groupby('weathersit')['cnt'].mean()
+    print(avg_rentals_per_weather)
     sns.barplot(x=avg_rentals_per_weather.index, y=avg_rentals_per_weather.values, palette='viridis')
     plt.title('Pengaruh Kondisi Cuaca terhadap rata-rata Penyewaan sepeda')
     plt.xlabel('Kondisi Cuaca')
     plt.ylabel('Jumlah Penyewaan')
-    plt.xticks(rotation=45)
+    # plt.xticks(rotation=45)
     st.pyplot(plt)  # Menampilkan plot
 
     # Kolom untuk metrik dan bar chart yang sederhana
